@@ -57,8 +57,8 @@ class Grid():
         """
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
-        # TODO: implement this function (and remove the line "raise NotImplementedError").
-        raise NotImplementedError
+        for k in range(self.m * self.n - 1):
+            assert self.state[k//self.n][k%self.n] < self.state[(k+1)//self.n][(k+1)%self.n]
 
     def swap(self, cell1, cell2):
         """
@@ -85,8 +85,14 @@ class Grid():
             List of swaps, each swap being a tuple of two cells (each cell being a tuple of integers). 
             So the format should be [((i1, j1), (i2, j2)), ((i1', j1'), (i2', j2')), ...].
         """
-        # TODO: implement this function (and remove the line "raise NotImplementedError").
-        raise NotImplementedError
+        new_grid = self
+        while cell_pair_list != []:
+            cell_pair = cell_pair_list.pop(0)
+            cell1, cell2 = cell_pair
+            new_grid = Grid.swap(new_grid, cell1, cell2)
+        return new_grid
+
+
 
     @classmethod
     def grid_from_file(cls, file_name): 
