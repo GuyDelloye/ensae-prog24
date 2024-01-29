@@ -72,6 +72,7 @@ class Grid():
         new_state = self.state
         i1, j1 = cell1
         i2, j2 = cell2
+        assert (i1 == i2) or (j1 == j2)
         new_state[i1][j1], new_state[i2][j2] = new_state[i2][j2], new_state[i1][j1]
         return Grid(self.m, self.n, new_state)
 
@@ -91,6 +92,20 @@ class Grid():
             cell1, cell2 = cell_pair
             new_grid = Grid.swap(new_grid, cell1, cell2)
         return new_grid
+    
+    def grid_to_tuple(self):
+        string = ''
+        for i in range(self.m):
+            for j in range(self.n):
+                string += str(self.state[i][j])
+        return string
+    
+    def neighbor_grids(self):
+        li = []
+        for i in range(m):
+            for j in range(n):
+                #on cherche les swaps possibles avec l'élément [i][j]
+
 
 
 
