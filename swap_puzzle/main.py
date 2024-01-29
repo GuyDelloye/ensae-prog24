@@ -33,4 +33,5 @@ from graph import Graph
 graph1 = Graph.graph_from_file("../input/graph1.in")
 print(graph1)
 
+print(Graph.bfs(graph1, 1, 2))
 

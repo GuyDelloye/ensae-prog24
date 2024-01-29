@@ -98,9 +98,18 @@ class Graph:
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
         queue = [src]
+        visited = [False for i in range(self.nb_nodes+1)] #noeuds numérotés à partir de 1 et non 0
+        path = [[] for i in range(self.nb_nodes+1)]
+        path[src] = [src]
         while queue != []:
             node = queue.pop(0)
-            self.graph[node]
+            visited[node] = True
+            for nghbr in self.graph[node]:
+                if not visited[nghbr]:
+                    path[nghbr] = path[node] + [nghbr]
+                    queue.append(nghbr)
+        return path
+
 
     @classmethod
     def graph_from_file(cls, file_name):
