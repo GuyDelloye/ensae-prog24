@@ -1,4 +1,4 @@
-from grid import Grid
+"""from grid import Grid
 
 g = Grid(2, 3)
 print(g)
@@ -17,12 +17,20 @@ print("After swap: ", g)
 g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
 print("After swap_freq: ", g)
 
-"""
+""
 print("is_sorted test:")
 g = Grid.is_sorted(g)
-"""
+""
 
 print("is_sorted test with the initial grid:")
 g = Grid(2,3)
 print(g, g.m, g.n)
 g = Grid.is_sorted(g)
+"""
+
+from graph import Graph
+
+graph1 = Graph.graph_from_file("../input/graph1.in")
+print(graph1)
+
+

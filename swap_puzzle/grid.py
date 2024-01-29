@@ -55,7 +55,7 @@ class Grid():
 
     def is_sorted(self):
         """
-        Checks is the current state of the grid is sorte and returns the answer as a boolean.
+        Checks is the current state of the grid is sorted and returns the answer as a boolean.
         """
         for k in range(self.m * self.n - 1):
             assert self.state[k//self.n][k%self.n] < self.state[(k+1)//self.n][(k+1)%self.n]
