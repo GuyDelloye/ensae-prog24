@@ -99,15 +99,16 @@ class Graph:
         """ 
         queue = [src]
         visited = [False for i in range(self.nb_nodes+1)] #noeuds numérotés à partir de 1 et non 0
+        visited[src] = True
         path = [[] for i in range(self.nb_nodes+1)]
         path[src] = [src]
         while queue != []:
             node = queue.pop(0)
-            visited[node] = True
             for nghbr in self.graph[node]:
                 if not visited[nghbr]:
                     path[nghbr] = path[node] + [nghbr]
                     queue.append(nghbr)
+                    visited[nghbr] = True
         return path
 
 
