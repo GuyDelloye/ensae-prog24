@@ -1,4 +1,4 @@
-"""
+""
 from grid import Grid
 
 g = Grid(2, 3)
@@ -8,7 +8,7 @@ data_path = "ensae-prog24/input/"
 file_name = data_path + "grid0.in"
 
 print(file_name)
-
+"""
 g = Grid.grid_from_file(file_name)
 print("Initial:", g)
 
@@ -31,12 +31,16 @@ g = Grid.is_sorted(g)
 """
 
 from graph import Graph
-"""
-graph1 = Graph.graph_from_file("../input/graph1.in")
+""
+
+data_path = "ensae-prog24/input/"
+file_name = data_path + "graph1.in"
+
+graph1 = Graph.graph_from_file(file_name)
 print(graph1)
 
 print(Graph.bfs(graph1, 1, 2))
-""
+"""
 def permutations(st):
 
 
@@ -52,3 +56,4 @@ def graph_from_grid(g):
 g = Graph([0,1])
 Graph.add_edge(g, 0, 1)
 print(g)
+"""

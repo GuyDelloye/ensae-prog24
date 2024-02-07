@@ -105,6 +105,15 @@ class Grid():
         for i in range(m):
             for j in range(n):
                 #on cherche les swaps possibles avec l'élément [i][j]
+                #pour ne pas avoir plusieurs fois la même grille, on n'échange qu'avec
+                #les éléments en bas ou à droite de l'élément [i][j]
+                if i < m-1:
+                    nghbr = grid_to_tuple(swap(self, (i,j), (i+1,j)))
+                    li.append(nghbr)
+                if j < n-1:
+                    nghbr = grid_to_tuple(swap(self, (i,j), (i,j+1)))
+                    li.append(nghbr)
+        return li
 
 
 
