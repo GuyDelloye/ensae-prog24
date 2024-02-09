@@ -98,7 +98,14 @@ class Grid():
         for i in range(self.m):
             for j in range(self.n):
                 string += str(self.state[i][j])
-        return string
+        return int(string)
+    
+    def tuple_to_grid(int, n, m):
+        st = string(int)
+        state = [[0 for j in range(n)]for i in range(m)]
+        for k in range(len(st)):
+            state[k//n][k%n] = st[k]
+        return Grid(m, n, state)
     
     def neighbor_grids(self):
         li = []
@@ -108,10 +115,10 @@ class Grid():
                 #pour ne pas avoir plusieurs fois la même grille, on n'échange qu'avec
                 #les éléments en bas ou à droite de l'élément [i][j]
                 if i < m-1:
-                    nghbr = grid_to_tuple(swap(self, (i,j), (i+1,j)))
+                    nghbr = Grid.grid_to_tuple(Grid.swap(self, (i,j), (i+1,j)))
                     li.append(nghbr)
                 if j < n-1:
-                    nghbr = grid_to_tuple(swap(self, (i,j), (i,j+1)))
+                    nghbr = Grid.grid_to_tuple(Grid.swap(self, (i,j), (i,j+1)))
                     li.append(nghbr)
         return li
 

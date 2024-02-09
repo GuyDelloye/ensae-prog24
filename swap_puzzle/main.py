@@ -47,13 +47,16 @@ def permutations(st):
 def graph_from_grid(g):
     li = permutations(Grid.grid_to_tuple(g))
     gra = Graph(li)
-    for gri in li:
+    for gri_tup in li:
+        gri = Grid.tuple_to_grid(gri_tup)
         for nghbr in Grid.neighbor_grids(gri):
             if nghbr not in :
-                Graph.add_edge(gra, gri, nghbr)
-""
-
-g = Graph([0,1])
-Graph.add_edge(g, 0, 1)
-print(g)
+                Graph.add_edge(gra, gri_tup, nghbr)
+    return gra
 """
+
+g = Graph([1,2,3,4])
+Graph.add_edge(g,1,2)
+Graph.add_edge(g,2,3)
+Graph.add_edge(g,3,4)
+print(g)
