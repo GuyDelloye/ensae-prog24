@@ -34,6 +34,6 @@ def visualize_grid(grid_object):
 
 
 # Example grid
-grid_example = Grid(2,4, [[1,2,3,4], [5,6,7,8]])
+grid = Grid(2,4, [[1,2,3,4], [5,6,7,8]])
 
-visualize_grid(grid_example)
+visualize_grid(grid)
