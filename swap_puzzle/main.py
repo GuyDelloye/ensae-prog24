@@ -41,8 +41,7 @@ print(graph1)
 
 print(Graph.bfs(graph1, 1, 2))
 """
-def permutations(st):
-
+from itertools import permutations
 
 def graph_from_grid(g):
     li = permutations(Grid.grid_to_tuple(g))
