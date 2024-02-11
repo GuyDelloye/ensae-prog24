@@ -93,32 +93,36 @@ class Grid():
             new_grid = Grid.swap(new_grid, cell1, cell2)
         return new_grid
     
-    def grid_to_tuple(self):
+    def grid_to_string(self):
         string = ''
         for i in range(self.m):
             for j in range(self.n):
                 string += str(self.state[i][j])
-        return int(string)
+        return string
     
-    def tuple_to_grid(int, n, m):
-        st = string(int)
+    def int_to_grid(int, n, m):
+        st = str(int)
         state = [[0 for j in range(n)]for i in range(m)]
         for k in range(len(st)):
             state[k//n][k%n] = st[k]
         return Grid(m, n, state)
     
     def neighbor_grids(self):
+        """
+        Returns the list of the grids (coded by an string) we can obtain by a unique swap from self
+        """
         li = []
+        n, m = self.n, self.m
         for i in range(m):
             for j in range(n):
                 #on cherche les swaps possibles avec l'élément [i][j]
                 #pour ne pas avoir plusieurs fois la même grille, on n'échange qu'avec
                 #les éléments en bas ou à droite de l'élément [i][j]
                 if i < m-1:
-                    nghbr = Grid.grid_to_tuple(Grid.swap(self, (i,j), (i+1,j)))
+                    nghbr = Grid.grid_to_string(Grid.swap(self, (i,j), (i+1,j)))
                     li.append(nghbr)
                 if j < n-1:
-                    nghbr = Grid.grid_to_tuple(Grid.swap(self, (i,j), (i,j+1)))
+                    nghbr = Grid.grid_to_string(Grid.swap(self, (i,j), (i,j+1)))
                     li.append(nghbr)
         return li
 

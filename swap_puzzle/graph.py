@@ -54,6 +54,12 @@ class Graph:
         Returns a representation of the graph with number of nodes and edges.
         """
         return f"<graph.Graph: nb_nodes={self.nb_nodes}, nb_edges={self.nb_edges}>"
+    
+    def is_connected(self, n1, n2):
+        """
+        Returns whether nodes n1 and n2 are connected
+        """
+        return ((n1,n2) in self.edges)
 
     def add_edge(self, node1, node2):
         """
