@@ -115,53 +115,7 @@ class Graph:
                     path[nghbr] = path[node] + [nghbr]
                     queue.append(nghbr)
                     visited[nghbr] = True
-        return path
-    
-    def bfs_new(self, src, dst): 
-        """
-        Essai avec changement d'indices --> échec
-
-        
-        Finds a shortest path from src to dst by BFS.  
-
-        Parameters: 
-        -----------
-        src: NodeType
-            The source node.
-        dst: NodeType
-            The destination node.
-
-        Output: 
-        -------
-        path: list[NodeType] | None
-            The shortest path from src to dst. Returns None if dst is not reachable from src
-        """ 
-        dico = [0 for i in range(self.nb_nodes)]
-
-        def index(node):
-            for i in range(len(dico)):
-                if dico[i] == node:
-                    return i
-        
-        for k in range(self.nb_nodes):
-            dico[k] = self.nodes[k]
-        print(dico)
-        queue = [index(src)]
-        visited = [False for i in range(self.nb_nodes)]
-        visited[index(src)] = True
-        path = [[] for i in range(self.nb_nodes)]
-        path[index(src)] = [index(src)]
-        while queue != []:
-            node_dico = queue.pop(0)
-            node = dico[node_dico]
-            for nghbr in self.graph[node]:
-                if not visited[index(nghbr)]:
-                    path[index(nghbr)] = path[node_dico] + [index(nghbr)]
-                    queue.append(index(nghbr))
-                    visited[index(nghbr)] = True
-        for k in range(len(path[index(dst)])):
-            path[index(dst)][k] = dico[k]
-        return path
+        return path[dst]
 
 
     @classmethod
