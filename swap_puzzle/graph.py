@@ -59,7 +59,7 @@ class Graph:
         """
         Returns whether nodes n1 and n2 are connected
         """
-        return ((n1,n2) in self.edges)
+        return (((n1,n2) in self.edges) or ((n2,n1) in self.edges))
 
     def add_edge(self, node1, node2):
         """

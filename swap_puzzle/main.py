@@ -63,19 +63,20 @@ def graph_from_grid(g):
                 Graph.add_edge(gra, gri_int, nbr_int)
     return gra
 
-"""
+""
 gra0 = Graph([1,2,3,4])
 Graph.add_edge(gra0,1,2)
 Graph.add_edge(gra0,2,3)
 Graph.add_edge(gra0,3,4)
 print(gra0)
-"""
+""
 
 print(g)
 print(graph_from_grid(g))
 
-"""
+""
 print(gra0, gra0.edges)
 print(Graph.is_connected(gra0, 1, 2))
 print(Graph.is_connected(gra0, 1, 3))
-"""
+
+
