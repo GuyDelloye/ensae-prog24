@@ -4,6 +4,8 @@ from grid import Grid
 g = Grid(2, 3)
 print(g)
 
+g0 = g
+
 data_path = "ensae-prog24/input/"
 file_name = data_path + "grid0.in"
 
@@ -40,6 +42,11 @@ graph1 = Graph.graph_from_file(file_name)
 print(graph1)
 
 print(Graph.bfs(graph1, 1, 2))
+print(Graph.bfs(graph1, 1, 4))
+
+graph2 = Graph.graph_from_file("ensae-prog24/input/graph2.in")
+print(graph2)
+print(Graph.bfs(graph2, 1, 8))
 ""
 from itertools import permutations
 
@@ -79,4 +86,19 @@ print(gra0, gra0.edges)
 print(Graph.is_connected(gra0, 1, 2))
 print(Graph.is_connected(gra0, 1, 3))
 
+print(g)
+print(Grid.neighbor_grids(g))
 
+print("g :", g)
+#b = Graph.bfs(graph_from_grid(g), int(Grid.grid_to_string(g)), int(Grid.grid_to_string(g0)))
+
+def apply_bfs_to_grid(g):
+    gra = graph_from_grid(g)
+    dico =[0 for i in range(gra.nb_nodes)]
+    for k in range(len(dico)):
+        dico[k] = gra.nodes[k]
+    return dico
+    
+
+
+print(apply_bfs_to_grid(g))

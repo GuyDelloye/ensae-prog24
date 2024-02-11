@@ -113,17 +113,23 @@ class Grid():
         """
         li = []
         n, m = self.n, self.m
+        copy_state = self.state[:]
         for i in range(m):
             for j in range(n):
                 #on cherche les swaps possibles avec l'élément [i][j]
                 #pour ne pas avoir plusieurs fois la même grille, on n'échange qu'avec
                 #les éléments en bas ou à droite de l'élément [i][j]
                 if i < m-1:
-                    nghbr = Grid.grid_to_string(Grid.swap(self, (i,j), (i+1,j)))
+                    nghbr = Grid.grid_to_string(Grid.swap(Grid(self.m, self.n, copy_state), (i,j), (i+1,j)))
                     li.append(nghbr)
+                    #print("avant :", self, "après :", Grid(self.m, self.n, copy_state))
+                    #print("nghbr :", nghbr, "self :", self, "copy_state :", copy_state)
+                    #print("copy_state :", copy_state)
                 if j < n-1:
-                    nghbr = Grid.grid_to_string(Grid.swap(self, (i,j), (i,j+1)))
+                    nghbr = Grid.grid_to_string(Grid.swap(Grid(self.m, self.n, copy_state), (i,j), (i,j+1)))
                     li.append(nghbr)
+                    #print("nghbr :", nghbr, "self :", self, "copy_state :", copy_state)
+                    #print("copy_state :", copy_state)
         return li
 
 
