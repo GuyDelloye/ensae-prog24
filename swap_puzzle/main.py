@@ -116,9 +116,9 @@ def apply_bfs_to_grid(g):
     print(dico[dst], dst)
     b = Graph.bfs(gra_renumbered, src, dst)
     print(b)
-    #for k in range(len(b)):
-        #b[k] = dico[k]
-    #return b
+    for k in range(len(b)):
+        b[k] = dico[k]
+    return b
 
 
 
