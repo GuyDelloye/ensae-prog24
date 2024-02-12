@@ -3,6 +3,9 @@ from graph import Graph
 from itertools import permutations
 
 def graph_from_grid(g):
+    """
+    Build the adjacence graph of the g grid using the neighbor_grids function
+    """
     n, m = g.n, g.m
     li = list(permutations(Grid.grid_to_string(g)))
     for k in range(len(li)):
@@ -22,11 +25,14 @@ def graph_from_grid(g):
 
 
 def apply_bfs_to_grid(g):
+    """
+    Returns the list of the optimal swaps to solve the g grid
+    """
     gra = graph_from_grid(g)
     dico =[0 for i in range(gra.nb_nodes)]
     for k in range(len(dico)):
         dico[k] = gra.nodes[k]
-    print("dico :", dico)
+    #print("dico :", dico)
 
     def index(node):
             for i in range(len(dico)):
@@ -41,9 +47,9 @@ def apply_bfs_to_grid(g):
     #print("gra_renumbered :", gra_renumbered)
     src = index(int(Grid.grid_to_string(g)))
     dst = index(min(dico))
-    print(dico[dst], dst)
+    #print(dico[dst], dst)
     b = Graph.bfs(gra_renumbered, src, dst)
-    print(b)
+    #print(b)
     for k in range(len(b)):
         b[k] = dico[b[k]]
     return b
@@ -55,7 +61,7 @@ print(Grid.neighbor_grids(g))
 
 g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
 print("After swaps: ", g)
-print("bfs")
+print("Optimal solution with bfs:")
 print(apply_bfs_to_grid(g))
 
 

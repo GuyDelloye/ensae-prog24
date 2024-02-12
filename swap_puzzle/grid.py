@@ -123,15 +123,11 @@ class Grid():
                 if i < m-1:
                     nghbr = Grid.grid_to_string(Grid.swap(self, (i,j), (i+1,j)))
                     li.append(nghbr)
-                    print(self)
                     g = Grid.swap(self, (i,j), (i+1,j))
-                    print(self)
                 if j < n-1:
                     nghbr = Grid.grid_to_string(Grid.swap(self, (i,j), (i,j+1)))
                     li.append(nghbr)
-                    print(self)
                     g = Grid.swap(self, (i,j), (i,j+1))
-                    print(self)
         return li
 
     def neighbor_grids_old(self):
