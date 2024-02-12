@@ -45,13 +45,25 @@ def apply_bfs_to_grid(g):
     b = Graph.bfs(gra_renumbered, src, dst)
     print(b)
     for k in range(len(b)):
-        b[k] = dico[k]
+        b[k] = dico[b[k]]
     return b
 
 
 g = Grid(2, 2)
 print(g)
 print(Grid.neighbor_grids(g))
+
+g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
+print("After swaps: ", g)
+print("bfs")
+print(apply_bfs_to_grid(g))
+
+
+
+
+
+
+
 
 
 """

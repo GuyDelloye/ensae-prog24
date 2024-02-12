@@ -115,6 +115,31 @@ class Grid():
         """
         li = []
         n, m = self.n, self.m
+        for i in range(m):
+            for j in range(n):
+                #on cherche les swaps possibles avec l'élément [i][j]
+                #pour ne pas avoir plusieurs fois la même grille, on n'échange qu'avec
+                #les éléments en bas ou à droite de l'élément [i][j]
+                if i < m-1:
+                    nghbr = Grid.grid_to_string(Grid.swap(self, (i,j), (i+1,j)))
+                    li.append(nghbr)
+                    print(self)
+                    g = Grid.swap(self, (i,j), (i+1,j))
+                    print(self)
+                if j < n-1:
+                    nghbr = Grid.grid_to_string(Grid.swap(self, (i,j), (i,j+1)))
+                    li.append(nghbr)
+                    print(self)
+                    g = Grid.swap(self, (i,j), (i,j+1))
+                    print(self)
+        return li
+
+    def neighbor_grids_old(self):
+        """
+        Returns the list of the grids (coded by an string) we can obtain by a unique swap from self
+        """
+        li = []
+        n, m = self.n, self.m
         copy_state = self.state[:]
         for i in range(m):
             for j in range(n):
