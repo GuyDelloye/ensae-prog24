@@ -58,7 +58,9 @@ class Grid():
         Checks is the current state of the grid is sorted and returns the answer as a boolean.
         """
         for k in range(self.m * self.n - 1):
-            assert self.state[k//self.n][k%self.n] < self.state[(k+1)//self.n][(k+1)%self.n]
+            if not (self.state[k//self.n][k%self.n] < self.state[(k+1)//self.n][(k+1)%self.n]):
+                return False
+        return True
 
     def swap(self, cell1, cell2):
         """
@@ -122,14 +124,11 @@ class Grid():
                 if i < m-1:
                     nghbr = Grid.grid_to_string(Grid.swap(Grid(self.m, self.n, copy_state), (i,j), (i+1,j)))
                     li.append(nghbr)
-                    #print("avant :", self, "après :", Grid(self.m, self.n, copy_state))
-                    #print("nghbr :", nghbr, "self :", self, "copy_state :", copy_state)
-                    #print("copy_state :", copy_state)
+                    print("copy_state :", copy_state)
                 if j < n-1:
                     nghbr = Grid.grid_to_string(Grid.swap(Grid(self.m, self.n, copy_state), (i,j), (i,j+1)))
                     li.append(nghbr)
-                    #print("nghbr :", nghbr, "self :", self, "copy_state :", copy_state)
-                    #print("copy_state :", copy_state)
+                    print("copy_state :", copy_state)
         return li
 
 

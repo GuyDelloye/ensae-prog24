@@ -1,58 +1,7 @@
-""
 from grid import Grid
-
-g = Grid(2, 3)
-print(g)
-
-g0 = g
-
-data_path = "ensae-prog24/input/"
-file_name = data_path + "grid0.in"
-
-print(file_name)
-""
-g = Grid.grid_from_file(file_name)
-print("Initial:", g)
-
-g = Grid.swap(g, (0,0), (0,1))
-print("After swap: ", g)
-
-""
-g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
-print("After swap_freq: ", g)
-
-"""
-print("is_sorted test:")
-g = Grid.is_sorted(g)
-""
-
-print("is_sorted test with the initial grid:")
-g = Grid(2,3)
-print(g, g.m, g.n)
-g = Grid.is_sorted(g)
-"""
-
 from graph import Graph
-""
-
-data_path = "ensae-prog24/input/"
-file_name = data_path + "graph1.in"
-
-graph1 = Graph.graph_from_file(file_name)
-print(graph1)
-
-print(Graph.bfs(graph1, 1, 2))
-print(Graph.bfs(graph1, 1, 3))
-
-graph2 = Graph.graph_from_file("ensae-prog24/input/graph2.in")
-print(graph2)
-print(Graph.bfs(graph2, 1, 8))
-"""
 from itertools import permutations
 
-print("Permut :", list(permutations('543')))
-
-""
 def graph_from_grid(g):
     n, m = g.n, g.m
     li = list(permutations(Grid.grid_to_string(g)))
@@ -70,27 +19,6 @@ def graph_from_grid(g):
                 Graph.add_edge(gra, gri_int, nbr_int)
     return gra
 
-""
-gra0 = Graph([1,2,3,4])
-Graph.add_edge(gra0,1,2)
-Graph.add_edge(gra0,2,3)
-Graph.add_edge(gra0,3,4)
-print(gra0)
-""
-
-print(g)
-print(graph_from_grid(g))
-
-""
-print(gra0, gra0.edges)
-print(Graph.is_connected(gra0, 1, 2))
-print(Graph.is_connected(gra0, 1, 3))
-
-print(g)
-print(Grid.neighbor_grids(g))
-
-print("g :", g)
-#b = Graph.bfs(graph_from_grid(g), int(Grid.grid_to_string(g)), int(Grid.grid_to_string(g0)))
 
 
 def apply_bfs_to_grid(g):
@@ -121,7 +49,51 @@ def apply_bfs_to_grid(g):
     return b
 
 
+g = Grid(2, 2)
+print(g)
+print(Grid.neighbor_grids(g))
 
 
-print(apply_bfs_to_grid(g))
+"""
+g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
+print("Initial:", g)
+
+g = Grid.swap(g, (0,0), (0,1))
+print("After swap: ", g)
+
+
+g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
+print("After swap_freq: ", g)
+
+
+print("is_sorted test:")
+g = Grid.is_sorted(g)
+print(g)
+
+
+graph1 = Graph.graph_from_file("ensae-prog24/input/graph1.in")
+print(graph1)
+
+print(Graph.bfs(graph1, 1, 2))
+print(Graph.bfs(graph1, 1, 3))
+
+graph2 = Graph.graph_from_file("ensae-prog24/input/graph2.in")
+print(graph2)
+print(Graph.bfs(graph2, 1, 8))
+
+print("Permut :", list(permutations('543')))
+
+
+gra0 = Graph([1,2,3,4])
+Graph.add_edge(gra0,1,2)
+Graph.add_edge(gra0,2,3)
+Graph.add_edge(gra0,3,4)
+print(gra0)
+
+print(Graph.is_connected(gra0, 1, 2))
+print(Graph.is_connected(gra0, 1, 3))
+
+
+print(g)
+print(graph_from_grid(g))
 """
