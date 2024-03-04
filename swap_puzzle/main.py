@@ -67,6 +67,14 @@ print(apply_bfs_to_grid(g))
 
 
 
+def distance(n1):
+    l = str(n1)
+    dist = 0
+    for k in range(l):
+        if l[k] != k+1:
+            dist += 1
+    return dist
+
 
 
 

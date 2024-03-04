@@ -1,6 +1,7 @@
 """
 This is the graph module. It contains a minimalistic Graph class.
 """
+import heapq
 
 class Graph:
     """
@@ -116,6 +117,37 @@ class Graph:
                     queue.append(nghbr)
                     visited[nghbr] = True
         return path[dst]
+    
+    def exists_inf(node, cost, li):
+        for k in range(len(li)):
+            h1, n1, c1 = li[k]
+            if c1 < cost and n1 == node:
+                return True
+        return False
+    
+    def a_star(self, src, dst):
+        """
+        Finds a shortest path from src to dst by A-star algorithm.
+        """
+        closed = {}
+        open_list = []
+        heappush(open_list, (distance(src), src, 0))
+        if dst == src:
+            return [src]
+        if dst in self.graph(src):
+            return [src, dst]
+        prec_node = src
+        while open_list != []:
+            heuristic, node, cost = heappop(open_list)
+            if node == dst:
+                return closed[prec_node] + [node]
+            for nghbr in self.graph[node]:
+                cost = cost + 1
+                if (not nghbr in closed) and (not exists_inf(nghbr, cost, open_list)):
+                    heappush(open_list, (cost + distance(nghbr, dst), nghbr, cost))
+            closed[node] = closed[prec_node] + [node]
+            prec_node = node
+        raise Exception('No path')
 
 
     @classmethod
