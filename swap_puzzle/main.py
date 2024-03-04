@@ -55,6 +55,8 @@ def apply_bfs_to_grid(g):
     return b
 
 
+"""
+#Test BFS: it works
 g = Grid(2, 2)
 print(g)
 print(Grid.neighbor_grids(g))
@@ -63,43 +65,22 @@ g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
 print("After swaps: ", g)
 print("Optimal solution with bfs:")
 print(apply_bfs_to_grid(g))
+"""
 
 
 
 
-def distance(node_int):
-    l = str(node_int)
-    dist = 0
-    for k in range(l):
-        if l[k] != k+1:
-            dist += 1
-    return dist//2
-
-def distance2(node_int, nb_columns, nb_lines):
-    l = str(node_int)
-    dist = 0
-    for k in range(l):
-        dist_k = 0
-        after_swaps = l[k]
-        while after_swaps != k+1:
-            if after_swaps <= k+1-nb_columns:
-                after_swaps += k+1-nb_columns
-                dist_k += 1
-            elif after_swaps >= k+1+nb_columns:
-                after_swaps -= k+1-nb_columns
-                dist_k += 1
-            if after_swaps%nb_columns < k+1%nb_columns:
-                after_swaps += 1
-                dist_k += 1
-            elif after_swaps%nb_columns > k+1%nb_columns:
-                after_swaps -= 1
-                dist_k += 1
-        if dist_k > dist:
-            dist = dist_k
-    return dist
 
 
 
+#Test A_star
+g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
+print("Initial:", g)
+gra0 = graph_from_grid(g)
+print(gra0)
+
+path = Graph.a_star(gra0, 1324, 1234)
+print(path)
 
 
 
