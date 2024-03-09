@@ -2,10 +2,44 @@ from grid import Grid
 from graph import Graph
 from itertools import permutations
 
+
+
+
+
 def graph_from_grid(g):
     """
     Build the adjacence graph of the g grid using the neighbor_grids function
     """
+    n, m = g.n, g.m
+    li = list(permutations(Grid.grid_to_tuple(g)))
+    gra = Graph(li)
+    for gri_tup in li:
+        gri = Grid.tup_to_grid(gri_tup,n,m)
+        for nghbr in Grid.neighbor_grids(gri):
+            if not Graph.is_connected(gra, gri_tup, nghbr):
+                Graph.add_edge(gra, gri_tup, nghbr)
+    return gra
+
+
+g = Grid(2, 2)
+print(g)
+gra0 = graph_from_grid(g)
+print(gra0)
+
+#print(Grid.grid_to_tuple(g))
+#li = list(permutations(Grid.grid_to_tuple(g)))
+#print(Graph(li))
+#print(Grid.tup_to_grid((1,2,3,4), 2, 2))
+
+
+
+
+
+"""
+def graph_from_grid_old_with_int(g):
+    ""
+    Build the adjacence graph of the g grid using the neighbor_grids function
+    ""
     n, m = g.n, g.m
     li = list(permutations(Grid.grid_to_string(g)))
     for k in range(len(li)):
@@ -14,7 +48,9 @@ def graph_from_grid(g):
             st += char
         li[k] = int(st)
     gra = Graph(li)
+    print(li)
     for gri_int in li:
+        print(gri_int)
         gri = Grid.int_to_grid(gri_int,n,m)
         for nghbr in Grid.neighbor_grids(gri):
             nbr_int = int(nghbr)
@@ -25,9 +61,9 @@ def graph_from_grid(g):
 
 
 def apply_bfs_to_grid(g):
-    """
+    ""
     Returns the list of the optimal swaps to solve the g grid
-    """
+    ""
     gra = graph_from_grid(g)
     dico =[0 for i in range(gra.nb_nodes)]
     for k in range(len(dico)):
@@ -55,7 +91,7 @@ def apply_bfs_to_grid(g):
     return b
 
 
-"""
+""
 #Test BFS: it works
 g = Grid(2, 2)
 print(g)
@@ -65,7 +101,7 @@ g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
 print("After swaps: ", g)
 print("Optimal solution with bfs:")
 print(apply_bfs_to_grid(g))
-"""
+""
 
 
 
@@ -74,6 +110,7 @@ print(apply_bfs_to_grid(g))
 
 
 #Test A_star
+""
 g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
 print("Initial:", g)
 gra0 = graph_from_grid(g)
@@ -82,6 +119,14 @@ print(gra0)
 path = Graph.a_star(gra0, 1324, 1234)
 #path = Graph.a_star(gra0, 2134, 1234)
 print(path)
+""
+
+g1 = Grid.grid_from_file("ensae-prog24/input/grid1.in")
+print("Initial:", g1)
+
+print(graph_from_grid(g1))
+"""
+
 
 
 
