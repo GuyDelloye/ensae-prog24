@@ -161,24 +161,62 @@ class Graph:
         Finds a shortest path from src to dst by A-star algorithm.
         """
         closed = {}
+        prec_nodes = {}
         open_list = []
         heapq.heappush(open_list, (Graph.distance(src), src, 0))
         if dst == src:
             return [src]
-        if dst in self.graph[src]:
-            return [src, dst]
-        prec_node = src
-        closed[prec_node] = [src]
+        #if dst in self.graph[src]:
+            #return [src, dst]
+        closed[src] = []
+        prec_nodes[src] = src
+        compteur = 0
         while open_list != []:
+            compteur += 1
+            heuristic, node, cost = heapq.heappop(open_list)
+            if node == dst:
+                return closed[prec_nodes[node]] + [node]
+            for nghbr in self.graph[node]:
+                cost = cost + 1
+                if (nghbr not in closed) and (not Graph.exists_inf(nghbr, cost, open_list)):
+                    heapq.heappush(open_list, (cost + Graph.distance(nghbr), nghbr, cost))
+                    prec_nodes[nghbr] = node
+            closed[node] = closed[prec_nodes[node]] + [node]
+            """if compteur <= 5:
+                print(compteur, 'open = ', open_list, 'closed = ', closed)
+            else:
+                return (compteur, 'open = ', open_list, 'closed = ', closed)"""
+        raise Exception('No path')
+        
+    def a_star_old(self, src, dst):
+        """
+        Finds a shortest path from src to dst by A-star algorithm.
+        """
+        closed = {}
+        open_list = []
+        heapq.heappush(open_list, (Graph.distance(src), src, 0))
+        if dst == src:
+            return [src]
+        #if dst in self.graph[src]:
+            #return [src, dst]
+        prec_node = src
+        closed[prec_node] = []
+        compteur = 0
+        while open_list != []:
+            compteur += 1
             heuristic, node, cost = heapq.heappop(open_list)
             if node == dst:
                 return closed[prec_node] + [node]
             for nghbr in self.graph[node]:
                 cost = cost + 1
-                if (not nghbr in closed) and (not Graph.exists_inf(nghbr, cost, open_list)):
+                if (nghbr not in closed) and (not Graph.exists_inf(nghbr, cost, open_list)):
                     heapq.heappush(open_list, (cost + Graph.distance(nghbr), nghbr, cost))
             closed[node] = closed[prec_node] + [node]
             prec_node = node
+            if compteur <= 3:
+                print(compteur, 'open = ', open_list, 'closed = ', closed)
+            else:
+                return (compteur, 'open = ', open_list, 'closed = ', closed)
         raise Exception('No path')
 
 

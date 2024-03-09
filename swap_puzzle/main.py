@@ -80,6 +80,7 @@ gra0 = graph_from_grid(g)
 print(gra0)
 
 path = Graph.a_star(gra0, 1324, 1234)
+#path = Graph.a_star(gra0, 2134, 1234)
 print(path)
 
 
