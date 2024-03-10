@@ -149,33 +149,14 @@ class Graph:
         return path[dst]
     
     def distance(node_tup):
+        """
+        Calculates the distance between the grid coded with a tuple (node_tup) and the solution grid.
+        """
         dist = 0
         for k in range(len(node_tup)):
             if node_tup[k] != k+1:
                 dist += 1
         return dist//2
-
-    def distance2(node_tup, nb_columns, nb_lines):
-        dist = 0
-        for k in range(len(node_tup)):
-            dist_k = 0
-            after_swaps = node_tup[k]
-            while after_swaps != k+1:
-                if after_swaps <= k+1-nb_columns:
-                    after_swaps += k+1-nb_columns
-                    dist_k += 1
-                elif after_swaps >= k+1+nb_columns:
-                    after_swaps -= k+1-nb_columns
-                    dist_k += 1
-                if after_swaps%nb_columns < k+1%nb_columns:
-                    after_swaps += 1
-                    dist_k += 1
-                elif after_swaps%nb_columns > k+1%nb_columns:
-                    after_swaps -= 1
-                    dist_k += 1
-            if dist_k > dist:
-                dist = dist_k
-        return dist
 
     def exists_inf(node, cost, li):
         for k in range(len(li)):
@@ -184,7 +165,7 @@ class Graph:
                 return True
         return False
     
-    def a_star(gra, src, dst):
+    def a_star(self, src, dst):
         """
         Finds a shortest path in Graph gra from src to dst by A-star algorithm.
         """
@@ -201,7 +182,32 @@ class Graph:
             heuristic, node, cost = heapq.heappop(open_list)
             if node == dst:
                 return closed[prec_nodes[node]] + [node]
-            for nghbr in gra.graph[node]:
+            for nghbr in self.graph[node]:
+                cost = cost + 1
+                if (nghbr not in closed) and (not Graph.exists_inf(nghbr, cost, open_list)):
+                    heapq.heappush(open_list, (cost + Graph.distance(nghbr), nghbr, cost))
+                    prec_nodes[nghbr] = node
+            closed[node] = closed[prec_nodes[node]] + [node]
+        raise Exception('No path')
+    
+    def a_star2(self, src, dst, n, m):
+        """
+        Finds a shortest path in Graph gra from src to dst by A-star algorithm.
+        """
+        closed = {}
+        prec_nodes = {}
+        open_list = []
+        heapq.heappush(open_list, (Graph.distance2(src, n, m), src, 0))
+        if dst == src:
+            return [src]
+        closed[src] = []
+        prec_nodes[src] = src
+        compteur = 0
+        while open_list != []:
+            heuristic, node, cost = heapq.heappop(open_list)
+            if node == dst:
+                return closed[prec_nodes[node]] + [node]
+            for nghbr in self.graph[node]:
                 cost = cost + 1
                 if (nghbr not in closed) and (not Graph.exists_inf(nghbr, cost, open_list)):
                     heapq.heappush(open_list, (cost + Graph.distance(nghbr), nghbr, cost))
