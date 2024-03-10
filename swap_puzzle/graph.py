@@ -88,7 +88,7 @@ class Graph:
         self.nb_edges += 1
         self.edges.append((node1, node2))
 
-    def bfs(self, src, dst): 
+def bfs(self, src, dst):
         """
         Finds a shortest path from src to dst by BFS.  
 
@@ -117,8 +117,45 @@ class Graph:
                     queue.append(nghbr)
                     visited[nghbr] = True
         return path[dst]
+
+def bfs_old(self, src, dst):
+    """
+    Finds a shortest path from src to dst by BFS.  
+
+    Parameters: 
+    -----------
+    src: NodeType
+        The source node.
+    dst: NodeType
+        The destination node.
+
+    Output: 
+    -------
+    path: list[NodeType] | None
+        The shortest path from src to dst. Returns None if dst is not reachable from src
+    """ 
+    queue = [src]
+    visited = [False for i in range(self.nb_nodes+1)] #noeuds numérotés à partir de 1 et non 0
+    visited[src] = True
+    path = [[] for i in range(self.nb_nodes+1)]
+    path[src] = [src]
+    while queue != []:
+        node = queue.pop(0)
+        for nghbr in self.graph[node]:
+            if not visited[nghbr]:
+                path[nghbr] = path[node] + [nghbr]
+                queue.append(nghbr)
+                visited[nghbr] = True
+    return path[dst]
     
-    def distance(node_int):
+    def distance(node_tup):
+        dist = 0
+        for k in range(len(node_tup)):
+            if node_tup[k] != k+1:
+                dist += 1
+        return dist//2
+    
+    def distance_old(node_int):
         l = str(node_int)
         dist = 0
         for k in range(len(l)):
@@ -126,7 +163,7 @@ class Graph:
                 dist += 1
         return dist//2
 
-    def distance2(node_int, nb_columns, nb_lines):
+    def distance2_old_with_int(node_int, nb_columns, nb_lines):
         l = str(node_int)
         dist = 0
         for k in range(len(l)):
@@ -155,10 +192,10 @@ class Graph:
             if c1 < cost and n1 == node:
                 return True
         return False
-
-    def a_star(self, src, dst):
+    
+    def a_star(gra, src, dst):
         """
-        Finds a shortest path from src to dst by A-star algorithm.
+        Finds a shortest path in Graph gra from src to dst by A-star algorithm.
         """
         closed = {}
         prec_nodes = {}
@@ -166,8 +203,6 @@ class Graph:
         heapq.heappush(open_list, (Graph.distance(src), src, 0))
         if dst == src:
             return [src]
-        #if dst in self.graph[src]:
-            #return [src, dst]
         closed[src] = []
         prec_nodes[src] = src
         compteur = 0
@@ -176,18 +211,14 @@ class Graph:
             heuristic, node, cost = heapq.heappop(open_list)
             if node == dst:
                 return closed[prec_nodes[node]] + [node]
-            for nghbr in self.graph[node]:
+            for nghbr in gra.graph[node]:
                 cost = cost + 1
                 if (nghbr not in closed) and (not Graph.exists_inf(nghbr, cost, open_list)):
                     heapq.heappush(open_list, (cost + Graph.distance(nghbr), nghbr, cost))
                     prec_nodes[nghbr] = node
             closed[node] = closed[prec_nodes[node]] + [node]
-            """if compteur <= 5:
-                print(compteur, 'open = ', open_list, 'closed = ', closed)
-            else:
-                return (compteur, 'open = ', open_list, 'closed = ', closed)"""
         raise Exception('No path')
-        
+
     def a_star_old(self, src, dst):
         """
         Finds a shortest path from src to dst by A-star algorithm.

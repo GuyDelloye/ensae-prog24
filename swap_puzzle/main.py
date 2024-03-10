@@ -1,6 +1,8 @@
 from grid import Grid
 from graph import Graph
 from itertools import permutations
+import heapq
+
 
 
 
@@ -21,25 +23,11 @@ def graph_from_grid(g):
     return gra
 
 
-g = Grid(2, 2)
-print(g)
-gra0 = graph_from_grid(g)
-print(gra0)
 
-#print(Grid.grid_to_tuple(g))
-#li = list(permutations(Grid.grid_to_tuple(g)))
-#print(Graph(li))
-#print(Grid.tup_to_grid((1,2,3,4), 2, 2))
-
-
-
-
-
-"""
 def graph_from_grid_old_with_int(g):
-    ""
+    """
     Build the adjacence graph of the g grid using the neighbor_grids function
-    ""
+    """
     n, m = g.n, g.m
     li = list(permutations(Grid.grid_to_string(g)))
     for k in range(len(li)):
@@ -59,11 +47,21 @@ def graph_from_grid_old_with_int(g):
     return gra
 
 
-
 def apply_bfs_to_grid(g):
-    ""
+    """
     Returns the list of the optimal swaps to solve the g grid
-    ""
+    """
+    gra = graph_from_grid(g)
+    src = Grid.grid_to_tuple(g)
+    total_nodes = g.n * g.m
+    dst = tuple(i for i in range(1, total_nodes+1))
+    return Graph.bfs(gra, src, dst)
+
+
+def apply_bfs_to_grid_old_with_int(g):
+    """
+    Returns the list of the optimal swaps to solve the g grid
+    """
     gra = graph_from_grid(g)
     dico =[0 for i in range(gra.nb_nodes)]
     for k in range(len(dico)):
@@ -91,47 +89,60 @@ def apply_bfs_to_grid(g):
     return b
 
 
-""
-#Test BFS: it works
-g = Grid(2, 2)
-print(g)
-print(Grid.neighbor_grids(g))
 
-g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
-print("After swaps: ", g)
-print("Optimal solution with bfs:")
-print(apply_bfs_to_grid(g))
-""
-
-
-
-
-
-
-
-#Test A_star
-""
+#Test BFS: it worked with the int version
 g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
-print("Initial:", g)
-gra0 = graph_from_grid(g)
-print(gra0)
-
-path = Graph.a_star(gra0, 1324, 1234)
-#path = Graph.a_star(gra0, 2134, 1234)
+path = apply_bfs_to_grid(g)
 print(path)
-""
 
-g1 = Grid.grid_from_file("ensae-prog24/input/grid1.in")
-print("Initial:", g1)
 
-print(graph_from_grid(g1))
+
+def a_star_remis_dans_classe_Graph(gra, src, dst, n, m):
+        """
+        Finds a shortest path in Graph gra from src to dst by A-star algorithm.
+        """
+        closed = {}
+        prec_nodes = {}
+        open_list = []
+        heapq.heappush(open_list, (Graph.distance(src), src, 0))
+        if dst == src:
+            return [src]
+        closed[src] = []
+        prec_nodes[src] = src
+        compteur = 0
+        while open_list != []:
+            compteur += 1
+            heuristic, node, cost = heapq.heappop(open_list)
+            if node == dst:
+                return closed[prec_nodes[node]] + [node]
+            for nghbr in gra.graph[node]:
+                cost = cost + 1
+                if (nghbr not in closed) and (not Graph.exists_inf(nghbr, cost, open_list)):
+                    heapq.heappush(open_list, (cost + Graph.distance(nghbr), nghbr, cost))
+                    prec_nodes[nghbr] = node
+            closed[node] = closed[prec_nodes[node]] + [node]
+        raise Exception('No path')
+
+def apply_a_star_to_grid(g):
+    """
+    Returns the list of the optimal swaps to solve the g grid
+    """
+    gra = graph_from_grid(g)
+    src = Grid.grid_to_tuple(g)
+    total_nodes = g.n * g.m
+    dst = tuple(i for i in range(1, total_nodes+1))
+    return Graph.a_star(gra, src, dst)
+
+
+
+
 """
+#Test A_star : OK
+g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
+path = apply_a_star_to_grid(g)
+print(path)
 
 
-
-
-
-"""
 g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
 print("Initial:", g)
 
