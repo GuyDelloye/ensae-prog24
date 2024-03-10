@@ -88,7 +88,7 @@ class Graph:
         self.nb_edges += 1
         self.edges.append((node1, node2))
 
-def bfs(self, src, dst):
+    def bfs_old(self, src, dst):
         """
         Finds a shortest path from src to dst by BFS.  
 
@@ -118,35 +118,35 @@ def bfs(self, src, dst):
                     visited[nghbr] = True
         return path[dst]
 
-def bfs_old(self, src, dst):
-    """
-    Finds a shortest path from src to dst by BFS.  
+    def bfs(self, src, dst):
+        """
+        Finds a shortest path from src to dst by BFS.  
 
-    Parameters: 
-    -----------
-    src: NodeType
-        The source node.
-    dst: NodeType
-        The destination node.
+        Parameters: 
+        -----------
+        src: NodeType
+            The source node.
+        dst: NodeType
+            The destination node.
 
-    Output: 
-    -------
-    path: list[NodeType] | None
-        The shortest path from src to dst. Returns None if dst is not reachable from src
-    """ 
-    queue = [src]
-    visited = [False for i in range(self.nb_nodes+1)] #noeuds numérotés à partir de 1 et non 0
-    visited[src] = True
-    path = [[] for i in range(self.nb_nodes+1)]
-    path[src] = [src]
-    while queue != []:
-        node = queue.pop(0)
-        for nghbr in self.graph[node]:
-            if not visited[nghbr]:
-                path[nghbr] = path[node] + [nghbr]
-                queue.append(nghbr)
-                visited[nghbr] = True
-    return path[dst]
+        Output: 
+        -------
+        path: list[NodeType] | None
+            The shortest path from src to dst. Returns None if dst is not reachable from src
+        """ 
+        queue = [src]
+        visited = {}
+        visited[src] = True
+        path = {}
+        path[src] = [src]
+        while queue != []:
+            node = queue.pop(0)
+            for nghbr in self.graph[node]:
+                if nghbr not in visited:
+                    path[nghbr] = path[node] + [nghbr]
+                    queue.append(nghbr)
+                    visited[nghbr] = True
+        return path[dst]
     
     def distance(node_tup):
         dist = 0
