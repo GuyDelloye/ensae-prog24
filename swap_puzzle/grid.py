@@ -57,8 +57,9 @@ class Grid():
         """
         Checks is the current state of the grid is sorted and returns the answer as a boolean.
         """
-        for k in range(self.m * self.n - 1):
-            if not (self.state[k//self.n][k%self.n] < self.state[(k+1)//self.n][(k+1)%self.n]):
+        for k in range(self.m * self.n):
+            if self.state[k//self.n][k%self.n] != k+1:
+                print(k)
                 return False
         return True
 
@@ -102,24 +103,10 @@ class Grid():
                 t = t + (self.state[i][j],)
         return t
     
-    def grid_to_string_old(self):
-        string = ''
-        for i in range(self.m):
-            for j in range(self.n):
-                string += str(self.state[i][j])
-        return string
-    
     def tup_to_grid(tup, n, m):
         state = [[0 for j in range(n)]for i in range(m)]
         for k in range(len(tup)):
             state[k//n][k%n] = tup[k]
-        return Grid(m, n, state)
-
-    def int_to_grid_old(int, n, m):
-        st = str(int)
-        state = [[0 for j in range(n)]for i in range(m)]
-        for k in range(len(st)):
-            state[k//n][k%n] = st[k]
         return Grid(m, n, state)
     
     def neighbor_grids(self):
@@ -139,27 +126,6 @@ class Grid():
                     g = Grid.swap(self, (i,j), (i+1,j))
                 if j < n-1:
                     nghbr = Grid.grid_to_tuple(Grid.swap(self, (i,j), (i,j+1)))
-                    li.append(nghbr)
-                    g = Grid.swap(self, (i,j), (i,j+1))
-        return li
-
-    def neighbor_grids_old(self):
-        """
-        Returns the list of the grids (coded by an string) we can obtain by a unique swap from self
-        """
-        li = []
-        n, m = self.n, self.m
-        for i in range(m):
-            for j in range(n):
-                #on cherche les swaps possibles avec l'élément [i][j]
-                #pour ne pas avoir plusieurs fois la même grille, on n'échange qu'avec
-                #les éléments en bas ou à droite de l'élément [i][j]
-                if i < m-1:
-                    nghbr = Grid.grid_to_string(Grid.swap(self, (i,j), (i+1,j)))
-                    li.append(nghbr)
-                    g = Grid.swap(self, (i,j), (i+1,j))
-                if j < n-1:
-                    nghbr = Grid.grid_to_string(Grid.swap(self, (i,j), (i,j+1)))
                     li.append(nghbr)
                     g = Grid.swap(self, (i,j), (i,j+1))
         return li

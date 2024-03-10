@@ -23,30 +23,6 @@ def graph_from_grid(g):
     return gra
 
 
-
-def graph_from_grid_old_with_int(g):
-    """
-    Build the adjacence graph of the g grid using the neighbor_grids function
-    """
-    n, m = g.n, g.m
-    li = list(permutations(Grid.grid_to_string(g)))
-    for k in range(len(li)):
-        st = ''
-        for char in li[k]:
-            st += char
-        li[k] = int(st)
-    gra = Graph(li)
-    print(li)
-    for gri_int in li:
-        print(gri_int)
-        gri = Grid.int_to_grid(gri_int,n,m)
-        for nghbr in Grid.neighbor_grids(gri):
-            nbr_int = int(nghbr)
-            if not Graph.is_connected(gra, gri_int, nbr_int):
-                Graph.add_edge(gra, gri_int, nbr_int)
-    return gra
-
-
 def apply_bfs_to_grid(g):
     """
     Returns the list of the optimal swaps to solve the g grid
@@ -186,3 +162,22 @@ print(Graph.is_connected(gra0, 1, 3))
 print(g)
 print(graph_from_grid(g))
 """
+g = Grid(2,2)
+print(g)
+print("is_sorted test:")
+g = Grid.is_sorted(g)
+print(g)
+
+g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
+g = Grid.swap(g, (0,0), (0,1))
+print("After swap: ", g)
+print("is_sorted test:")
+g = Grid.is_sorted(g)
+print(g)
+
+g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
+g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
+print("After swap_freq: ", g)
+print("is_sorted test:")
+g = Grid.is_sorted(g)
+print(g)
