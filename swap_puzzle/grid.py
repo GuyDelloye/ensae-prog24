@@ -59,7 +59,6 @@ class Grid():
         """
         for k in range(self.m * self.n):
             if self.state[k//self.n][k%self.n] != k+1:
-                print(k)
                 return False
         return True
 

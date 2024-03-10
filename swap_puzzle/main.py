@@ -4,8 +4,19 @@ from itertools import permutations
 import heapq
 
 
+#First functions
+g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
+print("Initial:", g)
 
+g = Grid.swap(g, (0,0), (0,1))
+print("After swap: ", g)
 
+g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
+print("After swap_freq: ", g)
+
+print("is_sorted test:")
+g = Grid.is_sorted(g)
+print(g)
 
 
 def graph_from_grid(g):
@@ -40,6 +51,8 @@ g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
 path = apply_bfs_to_grid(g)
 print(path)
 
+
+
 def apply_a_star_to_grid(g):
     """
     Returns the list of the optimal swaps to solve the g grid
@@ -50,76 +63,7 @@ def apply_a_star_to_grid(g):
     dst = tuple(i for i in range(1, total_nodes+1))
     return Graph.a_star(gra, src, dst)
 
-
-
-
-
 #Test A_star
 g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
 path = apply_a_star_to_grid(g)
 print(path)
-
-"""
-g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
-print("Initial:", g)
-
-g = Grid.swap(g, (0,0), (0,1))
-print("After swap: ", g)
-
-
-g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
-print("After swap_freq: ", g)
-
-
-print("is_sorted test:")
-g = Grid.is_sorted(g)
-print(g)
-
-
-graph1 = Graph.graph_from_file("ensae-prog24/input/graph1.in")
-print(graph1)
-
-print(Graph.bfs(graph1, 1, 2))
-print(Graph.bfs(graph1, 1, 3))
-
-graph2 = Graph.graph_from_file("ensae-prog24/input/graph2.in")
-print(graph2)
-print(Graph.bfs(graph2, 1, 8))
-
-print("Permut :", list(permutations('543')))
-
-
-gra0 = Graph([1,2,3,4])
-Graph.add_edge(gra0,1,2)
-Graph.add_edge(gra0,2,3)
-Graph.add_edge(gra0,3,4)
-print(gra0)
-
-print(Graph.is_connected(gra0, 1, 2))
-print(Graph.is_connected(gra0, 1, 3))
-
-
-print(g)
-print(graph_from_grid(g))
-"""
-"""
-g = Grid(2,2)
-print(g)
-print("is_sorted test:")
-g = Grid.is_sorted(g)
-print(g)
-
-g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
-g = Grid.swap(g, (0,0), (0,1))
-print("After swap: ", g)
-print("is_sorted test:")
-g = Grid.is_sorted(g)
-print(g)
-
-g = Grid.grid_from_file("ensae-prog24/input/grid0.in")
-g = Grid.swap_seq(g, [((0,0),(1,0)),((1,0),(1,1))])
-print("After swap_freq: ", g)
-print("is_sorted test:")
-g = Grid.is_sorted(g)
-print(g)
-"""
